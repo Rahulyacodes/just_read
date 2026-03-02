@@ -35,7 +35,7 @@ function Landing() {
               </div>
 
               <div className="space-y-5">
-                <h1 className="mx-auto max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-[#1e1a16] sm:text-5xl lg:text-6xl [font-family:'Lora',serif]">
+                <h1 className="mx-auto max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-[#1e1a16] sm:text-5xl lg:text-6xl [font-:'Lora',serif]">
                   Make reading your
                   <span className="block text-[#cb6b2d]">
                     best daily ritual.
