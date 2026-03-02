@@ -65,7 +65,7 @@ function useUser() {
   const completeOnboarding = () => dispatch({ type: 'COMPLETE_ONBOARDING' });
   const resetUser = () => dispatch({ type: 'RESET' });
 
-  return{
+  return {
     user,
     setTopics,
     setDifficulty,
@@ -73,8 +73,7 @@ function useUser() {
     setTheme,
     completeOnboarding,
     resetUser,
-  }
-
+  };
 }
 
-export default useUser
+export default useUser;
