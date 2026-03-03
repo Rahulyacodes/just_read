@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
 *,
 *::before,
@@ -35,6 +35,6 @@ select {
 
 body {
   font-family: 'DM Sans', sans-serif;
-  background-color: #FAFAF8;
-  color: #1C1917;
+  background-color: #fafaf8;
+  color: #1c1917;
 }

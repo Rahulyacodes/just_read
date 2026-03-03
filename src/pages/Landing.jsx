@@ -5,6 +5,20 @@ function Landing() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#f7f5f1]">
+      {/* NEW: Notebook lines */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 31px,
+        rgba(180, 160, 140, 0.2) 31px,
+        rgba(180, 160, 140, 0.2) 32px
+      )`,
+        }}
+      />
+
       {/* NEW: Top navbar */}
       <nav className="relative z-20 flex items-center px-8 pt-5">
         {/* App icon + name */}
@@ -25,7 +39,7 @@ function Landing() {
       <div className="pointer-events-none absolute -right-32 top-1/3 h-80 w-80 rounded-full bg-[#8ac7b8] opacity-60 blur-2xl" />
       <div className="pointer-events-none absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-[#f8d67b] opacity-60 blur-2xl" />
 
-      <div className="relative z-10 flex min-h-screen w-full items-center justify-center px-6 py-14">
+      <div className="relative z-10 flex min-h-screen w-full items-center justify-center px-6 py-1">
         <div className="w-full max-w-4xl mx-auto">
           <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-12 text-center">
             <section className="space-y-7">
