@@ -266,27 +266,30 @@ function Onboarding() {
 
                 {/* Dropddown list - only renders when  dropdownopen is true */}
                 {dropdownOpen && (
-                    <div className='absolute top-full left-0 right-0 mt-1 bg-white
+                  <div
+                    className="absolute top-full left-0 right-0 mt-1 bg-white
                                   border border-[#E0D5C8] rounded-xl shadow-lg
-                                  overflow-hidden z-20'>
-                        {READ_TIMES.map((time) => (
-                            <button
-                            key = {time}
-                            onClick={() => {
-                                setReadingTime(time)
-                                setDropdownOpen(false)
-                            }}
-                            className={`w-full text-left px-4 py-3 text-sm transition-colors
+                                  overflow-hidden z-20"
+                  >
+                    {READ_TIMES.map((time) => (
+                      <button
+                        key={time}
+                        onClick={() => {
+                          setReadingTime(time);
+                          setDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-3 text-sm transition-colors
                                    hover:bg-[#FFF5EF]
-                                   ${user.dailyReadingTime === time
-                                     ? 'text-[#E87C3B] font-medium bg-[#FFF5EF]'
-                                     : 'text-[#1C1917]'}`}
-                            >
-                                {time} minutes
-                            </button>
-                        ))}
-
-                    </div>
+                                   ${
+                                     user.dailyReadingTime === time
+                                       ? 'text-[#E87C3B] font-medium bg-[#FFF5EF]'
+                                       : 'text-[#1C1917]'
+                                   }`}
+                      >
+                        {time} minutes
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>

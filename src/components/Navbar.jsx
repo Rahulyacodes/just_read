@@ -1,17 +1,15 @@
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Navbar() {
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const isActive = (path) => location.pathname === path
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav className="sticky top-0 z-50 py-6">
-
       {/* Centered container */}
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between pl-30">
-
+      <div className="py-4 flex items-center justify-between">
         {/* Logo */}
         <button
           onClick={() => navigate('/home')}
@@ -31,14 +29,15 @@ function Navbar() {
 
         {/* Button group box */}
         <div className="flex items-center gap-2 border border-[#E87C3B] rounded-2xl p-1">
-
-            <button
+          <button
             onClick={() => navigate('/home')}
             className={`px-4 py-2 text-sm font-medium rounded-xl
                         transition-all duration-200
-                        ${isActive('/home')
-                          ? 'text-[#E87C3B]'
-                          : 'text-[#1C1917] hover:text-[#E87C3B] hover:-translate-y-0.5'}`}
+                        ${
+                          isActive('/home')
+                            ? 'text-[#E87C3B]'
+                            : 'text-[#1C1917] hover:text-[#E87C3B] hover:-translate-y-0.5'
+                        }`}
           >
             home
           </button>
@@ -47,9 +46,11 @@ function Navbar() {
             onClick={() => navigate('/library')}
             className={`px-4 py-2 text-sm font-medium rounded-xl
                         transition-all duration-200
-                        ${isActive('/library')
-                          ? 'text-[#E87C3B]'
-                          : 'text-[#1C1917] hover:text-[#E87C3B] hover:-translate-y-0.5'}`}
+                        ${
+                          isActive('/library')
+                            ? 'text-[#E87C3B]'
+                            : 'text-[#1C1917] hover:text-[#E87C3B] hover:-translate-y-0.5'
+                        }`}
           >
             Library
           </button>
@@ -58,9 +59,11 @@ function Navbar() {
             onClick={() => navigate('/progress')}
             className={`px-4 py-2 text-sm font-medium rounded-xl
                         transition-all duration-200
-                        ${isActive('/progress')
-                          ? 'text-[#E87C3B]'
-                          : 'text-[#1C1917] hover:text-[#E87C3B] hover:-translate-y-0.5'}`}
+                        ${
+                          isActive('/progress')
+                            ? 'text-[#E87C3B]'
+                            : 'text-[#1C1917] hover:text-[#E87C3B] hover:-translate-y-0.5'
+                        }`}
           >
             Progress
           </button>
@@ -69,18 +72,18 @@ function Navbar() {
             onClick={() => navigate('/settings')}
             className={`px-4 py-2 text-sm font-medium rounded-xl
                         transition-all duration-200
-                        ${isActive('/settings')
-                          ? 'text-[#E87C3B]'
-                          : 'text-[#1C1917] hover:text-[#E87C3B] hover:-translate-y-0.5'}`}
+                        ${
+                          isActive('/settings')
+                            ? 'text-[#E87C3B]'
+                            : 'text-[#1C1917] hover:text-[#E87C3B] hover:-translate-y-0.5'
+                        }`}
           >
             Settings
           </button>
-
         </div>
-
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

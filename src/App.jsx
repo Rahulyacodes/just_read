@@ -26,9 +26,18 @@ function App() {
         <Route path="/onboarding" element={<Onboarding />} />
 
         {/* NEW: placeholder routes */}
-        <Route path="/library" element={<div style={{padding:'2rem'}}>Library coming soon</div>} />
-        <Route path="/progress" element={<div style={{padding:'2rem'}}>Progress coming soon</div>} />
-        <Route path="/settings" element={<div style={{padding:'2rem'}}>Settings coming soon</div>} />
+        <Route
+          path="/library"
+          element={<div style={{ padding: '2rem' }}>Library coming soon</div>}
+        />
+        <Route
+          path="/progress"
+          element={<div style={{ padding: '2rem' }}>Progress coming soon</div>}
+        />
+        <Route
+          path="/settings"
+          element={<div style={{ padding: '2rem' }}>Settings coming soon</div>}
+        />
       </Routes>
     </BrowserRouter>
   );
