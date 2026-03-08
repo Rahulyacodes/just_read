@@ -1,63 +1,94 @@
-import { useState, useEffect } from 'react'
-import { fetchBooksByTopic } from '../services/gutenberg'
-import { fetchWikiArticle } from '../services/wikipedia'
+import { useState, useEffect } from 'react';
+import { fetchBooksByTopic } from '../services/gutenberg';
+import { fetchWikiArticle, fetchWikiSummaryForTitle } from '../services/wikipedia';
+import { data } from 'react-router-dom';
 
-function useLibrary (topics = []) {
-    //all content fetched from both apis
-    const [content, setContent] = useState([])
-    // the single item we show on as today's read on home
-    const [todaysRead, setTodaysRead] = useState(null)
-    // true while apis are loading
-    const [loading, setLoading] = useState(false)
-    // error
-    const [error, setError] = useState(null)
+function useLibrary(topics = []) {
+  //all content fetched from both apis
+  const [content, setContent] = useState([]);
+  // the single item we show on as today's read on home
+  const [todaysRead, setTodaysRead] = useState(null);
+  // true while apis are loading
+  const [loading, setLoading] = useState(false);
+  // error
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
+  useEffect(() => {
+    if (topics.length === 0) return;
+
+    const fetchContent = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // use 1st topics as primary - this drives todays read
+        const primaryTopic = topics[0];
         
-        if(topics.length === 0) return
+        // ------------caching------------------
+        const catchKey = `jr_content_${primaryTopic}`
+        const cached = localStorage.getItem(catchKey)
 
-        const fetchContent = async ()  => {
-            setLoading(true)
-            setError(null)
+        if(cached){
+            const {data, timeStamp} = JSON.parse(cached)
 
-            try{
-                // use 1st topics as primary - this drives todays read
-                const primaryTopic = topics[0]
+            const oneDay = 24 * 60 * 60 * 1000
+            
+            const isStillFresh = Date.now() - timeStamp < oneDay
 
-                // Fetches both api at same time
-                const [books, wikiArticle] = await Promise.all([
-                    fetchBooksByTopic(primaryTopic),
-                    fetchWikiArticle(primaryTopic),
-                ])
-
-                // combine books arrays + book article in one array
-                const  allContent = [
-                    ...books,
-                    ...(wikiArticle ? [wikiArticle] : [])
-                ]
-
-                setContent(allContent)
-
-                // first item it combined array becomes todays read
-                setTodaysRead(allContent[0] || null)
-
-            }catch(err){
-                setError('failed to load content')
-                console.log(err)
-            }finally{
+            if(isStillFresh){
+                setContent(data)
+                setTodaysRead(data[0] || null)
                 setLoading(false)
+                return 
             }
         }
 
-        fetchContent()
-    },[topics.join(',')])
+        const today = new Date().getDate
+        const useGutenberg = today % 2 === 0
 
-    return{
-        content,
-        todaysRead,
-        error,
-        loading,
-    }
+        let allContent = []
+
+        if(useGutenberg){
+            const books = await fetchBooksByTopic(primaryTopic)
+            if(books.length > 0){
+                const description = await fetchWikiSummaryForTitle(books[0].title)
+                books = {...books[0], description}
+            }
+            allContent = books
+
+        }else{
+            const article = await fetchWikiArticle(primaryTopic)
+            allContent = article ? [article] : []
+        }   
+
+        // ── Save to cache ─────────────────────────────────
+        // saves content + current timestamp
+        // next refresh reads this instead of calling APIs
+        localStorage.setItem(catchKey, JSON.stringify({
+            data : allContent,
+            timeStamp : Date.now(),
+        }))
+
+        setContent(allContent)
+        setTodaysRead(allContent[0] || null)
+
+      } catch (err) {
+        setError('failed to load content');
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, [topics.join(',')]);
+
+  return {
+    content,
+    todaysRead,
+    error,
+    loading,
+  };
 }
 
-export default useLibrary
+export default useLibrary;

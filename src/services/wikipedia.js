@@ -40,3 +40,18 @@ export const fetchWikiArticle = async (topic) => {
     return null;
   }
 };
+
+// for todays read title summary
+export const fetchWikiSummaryForTitle = async (title) => {
+    try{
+      const searchTerm = title.replace(/\s+/g, '_')
+      const response = await fetch(`${BASE_URL}/page/summary/${searchTerm}`)
+      if(!response.ok) return null
+      const data = await response.json()
+      return data.extract() || null
+
+    }catch(err){
+      console.log('Wiki summary fetch error', err)
+      return null
+    }
+}
